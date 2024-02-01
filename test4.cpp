@@ -40,5 +40,5 @@ int main() {
     // check(tower, monster);
     // cout << "ANS : ";
     cout << printSum(monster) << "\n";
-    return 100;
+    return 0;
 }
