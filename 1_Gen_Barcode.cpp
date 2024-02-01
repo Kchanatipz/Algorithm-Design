@@ -3,25 +3,33 @@
 #include <vector>
 using namespace std;
 
-void recur(vector<int> &ans, int onesNeed, int idx) {
-    if (idx < ans.size()) {
+vector<int> ans;
+int onesNeed, k;
+
+void printPermu() {
+    for (auto &e : ans) {
+        cout << e;
+    }
+    cout << "\n";
+}
+
+void recur(int idx) {
+    if (idx < k) {
         ans[idx] = 0;
-        recur(ans, onesNeed, idx + 1);
+        recur(idx + 1);
         if (onesNeed > 0) {
             ans[idx] = 1;
-            recur(ans, onesNeed - 1, idx + 1);
-        };
-    } else if (onesNeed == 0) {
-        for (auto &e : ans) {
-            cout << e;
+            onesNeed--;
+            recur(idx + 1);
+            onesNeed++;
         }
-        cout << "\n";
+    } else if (onesNeed == 0) {
+        printPermu();
     }
 }
 
 int main() {
-    int a, b;
-    cin >> a >> b;
-    vector<int> v(b);
-    recur(v, a, 0);
+    cin >> onesNeed >> k;
+    ans.resize(k, 5);
+    recur(0);
 }
