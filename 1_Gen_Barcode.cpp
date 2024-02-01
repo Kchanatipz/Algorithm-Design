@@ -4,7 +4,7 @@
 using namespace std;
 
 vector<int> ans;
-int onesNeed, k;
+int a, b;
 
 void printPermu() {
     for (auto &e : ans) {
@@ -13,15 +13,13 @@ void printPermu() {
     cout << "\n";
 }
 
-void recur(int idx) {
-    if (idx < k) {
+void recur(int idx, int onesNeed) {
+    if (idx < b) {
         ans[idx] = 0;
-        recur(idx + 1);
+        recur(idx + 1, onesNeed);
         if (onesNeed > 0) {
             ans[idx] = 1;
-            onesNeed--;
-            recur(idx + 1);
-            onesNeed++;
+            recur(idx + 1, onesNeed - 1);
         }
     } else if (onesNeed == 0) {
         printPermu();
@@ -29,7 +27,7 @@ void recur(int idx) {
 }
 
 int main() {
-    cin >> onesNeed >> k;
-    ans.resize(k, 5);
-    recur(0);
+    cin >> a >> b;
+    ans.resize(b);
+    recur(0, a);
 }
