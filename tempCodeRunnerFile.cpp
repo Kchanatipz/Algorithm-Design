@@ -1,3 +1,1 @@
-r) {
-    //     for (auto &e :)
-    // }
+sync_with_stdio
