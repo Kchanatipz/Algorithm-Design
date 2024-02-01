@@ -1,3 +1,4 @@
+// 6 Triple Sum
 #include <algorithm>
 #include <oistream>
 #include <vector>
