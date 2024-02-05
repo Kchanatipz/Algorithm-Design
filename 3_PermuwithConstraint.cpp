@@ -5,7 +5,7 @@ using namespace std;
 
 int n, m, a, b;
 vector<int> ans;
-vector<bool> used;
+vector<bool> use;
 vector<int> check;
 
 void printPermu() {
