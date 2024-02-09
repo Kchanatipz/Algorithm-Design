@@ -15,8 +15,9 @@ bool recur(int start, int len) {
         diff -= v[start + len + i];
     }
     // cout << diff << "\n";
-    if (abs(diff) > 1) return false;
-    return recur(start, len) & recur(start + len, len);
+    bool ans = recur(start, len) & recur(start + len, len);
+    if (abs(diff) > 1) ans = false;
+    return ans;
 }
 
 int main() {
