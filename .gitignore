@@ -2,5 +2,5 @@
 !*.cpp
 !Makefile
 !.gitignore
-!.README.md
+!README.md
 /tempCodeRunnerFile.cpp
