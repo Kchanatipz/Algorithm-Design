@@ -10,11 +10,9 @@ bool recur(int start, int len) {
     int diff = 0;
     len /= 2;
     for (int i = 0; i < len; i++) {
-        // cout << start + i << " " << start + len + i << "\n";
         diff += v[start + i];
         diff -= v[start + len + i];
     }
-    // cout << diff << "\n";
     bool ans = recur(start, len) & recur(start + len, len);
     if (abs(diff) > 1) ans = false;
     return ans;
