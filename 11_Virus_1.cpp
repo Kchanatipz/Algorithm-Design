@@ -4,12 +4,15 @@
 
 using namespace std;
 
-bool recur(vector<int> v, int start, int stop, bool reverse) {
-    if (stop - start == 1) {
-        return ((v[start] == 0 && v[stop] == 1) || (reverse && v[start] == 1 && v[stop] == 0));
+bool recur(vector<int> v, int start, int len, bool reverse) {
+    if (len == 2) {
+        if (!reverse && v[start] == 0 && v[start + 1] == 1) return true;
+        if (reverse && v[start] == 1 && v[start + 1] == 0) return true;
+        return false;
     }
-    int mid = (start + stop) / 2;
-    return recur(v, start, mid, true) && recur(v, mid + 1, stop, false);
+    len /= 2;
+    if (!reverse) return (recur(v, start, len, false) || recur(v, start, len, true)) && recur(v, start + len, len, false);
+    return (recur(v, start + len, len, false) || recur(v, start + len, len, true)) && recur(v, start, len, true);
 }
 
 int main() {
@@ -20,7 +23,7 @@ int main() {
         for (int i = 0; i < pow(2, k); i++) {
             cin >> v[i];
         }
-        if (recur(v, 0, pow(2, k) - 1, false)) {
+        if (recur(v, 0, pow(2, k), false)) {
             cout << "yes\n";
         } else {
             cout << "no\n";
@@ -30,13 +33,22 @@ int main() {
 }
 
 /*
-4 2
-1 1 0 0
-1 0 0 1
-0 0 0 0
+10 3
+1 0 1 0 0 1 0 1
+0 1 1 0 0 1 0 1 <-
+0 1 0 1 1 0 0 1
+0 1 0 1 1 0 0 1
+1 0 0 1 1 0 0 1
+1 0 0 1 1 0 0 1
+1 0 1 0 0 1 0 1
+0 1 0 1 0 1 0 1
+1 0 0 1 0 1 1 0 <-
+1 0 0 1 1 0 0 1
 
-3 3
-1 0 0 1 0 1 0 1
-1 0 1 0 1 0 0 1
-1 0 1 1 1 0 0 0
+5 4
+0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1
+0 1 0 1 0 1 0 1 0 1 0 1 1 0 0 1
+0 1 0 1 0 1 0 1 1 0 0 1 0 1 0 1
+0 1 0 1 0 1 0 1 1 0 0 1 1 0 0 1
+0 1 0 1 0 1 0 1 1 0 1 0 0 1 0 1
 */
