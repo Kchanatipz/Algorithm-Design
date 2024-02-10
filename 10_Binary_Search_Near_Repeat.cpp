@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 #include <vector>
 
 using namespace std;
@@ -6,19 +7,19 @@ vector<int> v;
 int n, m, value;
 
 int recur(int start, int stop) {
-    // cout << start << " " << stop << "\n";
+    if (value < v[0]) return -1;
+    if (value > v[v.size() - 1]) return v.size() - 1;
     if (start == stop) {
-        if (v[start] == k) return v[start];
-        if (start > 0) return v[--start];
-        return -1;
+        if (value == v[start]) {
+            while (v[start] == v[start + 1]) start++;
+            return start;
+        }
+        return start - 1;
     }
     int mid = (start + stop) / 2;
-    // cout << mid;
     if (v[mid] < value) {
-        // cout << " right\n";
         return recur(mid + 1, stop);
     } else {
-        // cout << " left\n";
         return recur(start, mid);
     }
 }
@@ -30,16 +31,8 @@ int main() {
     for (int i = 0; i < n; i++) {
         cin >> v[i];
     }
-    for (int i = 0; i < m; i++) {
+    while (m--) {
         cin >> value;
-        int ans = -1;
         cout << recur(0, n - 1) << "\n";
     }
-    return 0;
 }
-
-/*
-10 8
-10 13 14 14 14 15 16 16 18 200
-9 10 11 14 0 200 20 16
-*/
