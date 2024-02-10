@@ -21,18 +21,6 @@ int main() {
             }
         }
     }
-    // int i = 0;
-    // int j = 1;
-    // while (true) {
-    //     if (i == n - 2) break;
-    //     if (j == n) {
-    //         i++;
-    //         j = i + 1;
-    //     }
-    //     cout << v[i] << " " << v[j] << " " << (v[i] > v[j]) << "\n";
-    //     if (v[i] > v[j]) ans++;
-    //     j++;
-    // }
     cout << ans << "\n";
     return 0;
 }
