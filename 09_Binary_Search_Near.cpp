@@ -2,36 +2,41 @@
 #include <vector>
 
 using namespace std;
+vector<int> v;
+int n, m, value;
 
-int recur(vector<int> v, int start, int stop, int value) {
+int recur(int start, int stop) {
     // cout << start << " " << stop << "\n";
+    if (value < v[0]) return -1;
+    if (value > v[v.size() - 1]) return v[v.size() - 1];
     if (start == stop) {
-        if (value <= v[start]) return v[start];
+        // if ((start == 0 || start == n - 1) & v[start] <= value) return v[start];
+        if (value == v[start]) return v[start];
+        if (value < v[start]) return v[start - 1];
         return -1;
     }
     int mid = (start + stop) / 2;
     // cout << mid;
     if (v[mid] < value) {
         // cout << " right\n";
-        return recur(v, mid + 1, stop, value);
+        return recur(mid + 1, stop);
     } else {
         // cout << " left\n";
-        return recur(v, start, mid, value);
+        return recur(start, mid);
     }
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    int n, m, x;
+    cin.tie(nullptr)->sync_with_stdio(false);
     cin >> n >> m;
-    vector<int> v(n);
+    v.resize(n);
     for (int i = 0; i < n; i++) {
         cin >> v[i];
     }
     for (int i = 0; i < m; i++) {
-        cin >> x;
-        cout << recur(v, 0, n - 1, x) << "\n";
+        cin >> value;
+        int ans = -1;
+        cout << recur(0, n - 1) << "\n";
     }
 }
 
@@ -43,4 +48,8 @@ int main() {
 10 3
 1 5 7 9 16 20 22 25 31 35
 30 33 12
+
+4 7
+14 15 20 30
+10 11 14 15 16 21 68
 */
