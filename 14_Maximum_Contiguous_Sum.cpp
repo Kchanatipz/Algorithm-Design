@@ -14,8 +14,8 @@ int recur(int start, int stop) {
     cout << "-------------\n";
     int sum, r3 = v[start];
     for (int i = 1; i < mid; i++) {
-        for (int j = mid + 1; j < n; j++) {
-            sum = s[j] - s[i];
+        for (int j = mid + 1; j <= n; j++) {
+            sum = s[j] - s[i - 1];
             cout << i << " " << j << " " << s[j] << " " << s[i] << " " << sum << "\n";
             if (sum > r3) r3 = sum;
         }
