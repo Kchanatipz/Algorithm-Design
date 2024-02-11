@@ -5,38 +5,44 @@ using namespace std;
 vector<int> v, s;
 int n;
 
+int getSum(int a, int b) {
+    return s[b] - s[a - 1];
+}
+
 int recur(int start, int stop) {
     if (start == stop) return v[start];
+
     int mid = (start + stop) / 2;
 
     int r1 = recur(start, mid);
     int r2 = recur(mid + 1, stop);
-    cout << "-------------\n";
-    int sum, r3 = v[start];
-    for (int i = 1; i < mid; i++) {
-        for (int j = mid + 1; j <= n; j++) {
-            sum = s[j] - s[i - 1];
-            cout << i << " " << j << " " << s[j] << " " << s[i] << " " << sum << "\n";
-            if (sum > r3) r3 = sum;
-        }
+
+    int max_sum_left = getSum(mid, mid);
+    int max_sum_right = getSum(mid + 1, mid + 1);
+
+    // S[*][mid] --> * = l to mid
+    for (int i = start; i <= mid; i++) {
+        max_sum_left = max(max_sum_left, getSum(i, mid));
     }
-    cout << start << " " << stop << "\n";
-    cout << "-- " << r1 << " " << r2 << " " << r3 << "\n";
-    cout << "-------------\n";
+
+    // S[mid+1][*] --> * = mid+1 to r
+    for (int i = mid + 1; i <= stop; i++) {
+        max_sum_right = max(max_sum_right, getSum(mid + 1, i));
+    }
+    int r3 = max_sum_left + max_sum_right;
     return max(max(r1, r2), r3);
 }
 
 int main() {
     cin >> n;
-    v.resize(n + 1);
+    v.resize(n + 1, 0);
     s.resize(n + 1, 0);
     for (int i = 1; i <= n; i++) {
         cin >> v[i];
         s[i] += s[i - 1] + v[i];
     }
     s[0] = 0;
-    for (auto &e : s) cout << e << " ";
-    cout << recur(0, n - 1) << "\n";
+    cout << recur(1, n) << "\n";
 }
 
 /*
@@ -45,4 +51,7 @@ int main() {
 
 8
 -1 -1 -2 -2 -2 -2 -2 -2 -1
+
+8
+3 -4 1 2 -1 -1 5 -4
 */
