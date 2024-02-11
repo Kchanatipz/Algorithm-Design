@@ -13,6 +13,7 @@ int findDistance(int a, int b) {
 }
 
 int recur(int start, int stop) {
+    return 0;
 }
 
 int main() {
