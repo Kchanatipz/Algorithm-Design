@@ -1,1 +1,1 @@
-Alogirithm Design Sem 2/2023 at Chulalongkorn University
+Alogirithm Design Semester 2/2023 at Chulalongkorn University
