@@ -2,32 +2,34 @@
 #include <vector>
 
 using namespace std;
-vector<vector<int>> v, store;
-vector<int> u;
-int n, m, k, x;
 
-void check() {
+void check(vector<vector<int>> v) {
     cout << "---------------------\n";
     for (auto &i : v) {
         for (auto &j : i) cout << j << " ";
         cout << "\n";
     }
-    cout << "---------------------\n";
 }
 
 int main() {
     cin.tie(nullptr)->sync_with_stdio(false);
+
+    int n, m, k, r1, c1, r2, c2;
+
     cin >> n >> m >> k;
-    v.resize(n);
-    u.resize(m);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++)
-            cin >> u[j];
-        v[i] = u;
+    vector<vector<int>> v(n + 1, vector<int>(m + 1));
+    auto p = v;
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            cin >> v[i][j];
+            p[i][j] = v[i][j] + p[i - 1][j] + p[i][j - 1] - p[i - 1][j - 1];
+        }
     }
-    check();
     while (k--) {
-        cin >> x;
+        cin >> r1 >> c1 >> r2 >> c2;
+        r1++, c1++, r2++, c2++;
+        cout << p[r2][c2] - p[r1 - 1][c2] - p[r2][c1 - 1] + p[r1 - 1][c1 - 1] << "\n";
     }
     return 0;
 }
