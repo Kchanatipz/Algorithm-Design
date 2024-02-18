@@ -7,18 +7,14 @@ vector<int> v, score;
 vector<bool> used;
 int n;
 
-top down int recur(int step) {
+int recur(int step) {
     if (step < 1) return -99999;
     if (!used[step]) {
-        int one = recur(step - 1);
-        int two = recur(step - 2);
-        int three = recur(step - 3);
-        cout << step << " " << one << " " << two << " " << three << "\n";
-        score[step] = max(max(one, two), three) + v[step];
+        // cout << step << " " << one << " " << two << " " << three << "\n";
+        score[step] = max(max(recur(step - 1), recur(step - 2)), recur(step - 3)) + v[step];
         used[step] = true;
-    } else {
-        return score[step];
     }
+    return score[step];
 }
 
 int main() {
@@ -33,10 +29,6 @@ int main() {
     score[1] = v[1];
     used[1] = true;
     recur(n);
-    for (auto& e : score) cout << e << " ";
-    cout << "\n";
-    for (int i = 0; i <= n; i++) cout << used[i] << " ";
-    cout << "\n";
     cout << score[n] << "\n";
     return 0;
 }
