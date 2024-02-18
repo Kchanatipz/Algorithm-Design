@@ -23,9 +23,8 @@ int main() {
     v.resize(n + 1);
     used.resize(n + 1);
     score = v;
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i <= n; i++)
         cin >> v[i];
-    }
     score[1] = v[1];
     used[1] = true;
     recur(n);
