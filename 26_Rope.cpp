@@ -1,41 +1,20 @@
 #include <algorithm>
 #include <iostream>
-#include <unordered_map>
 #include <vector>
 
 using namespace std;
-int n, a, b, c;
-unordered_map<int, int> m;
-
-void update() {
-    cout << "update : ";
-    for (auto &[i, j] : m) {
-        cout << i << " " << j << "   ";
-    }
-    cout << "\n";
-}
-
-int recur(int remain) {
-    if (remain < 0) return -100;
-    if (m.find(remain) != m.end()) {
-        return m[remain];
-    }
-    int first = recur(remain - a);
-    int second = recur(remain - b);
-    int third = recur(remain - c);
-    // cout << remain << " , " << remain - a << ":" << first << " ";
-    // cout << remain - b << ":" << second << " " << remain - c << ":" << third << "\n";
-    int ans = max(max(first, second), third);
-    m[remain] = ans + 1;
-    // update();
-    return ans + 1;
-}
 
 int main() {
+    int n, a, b, c;
     cin >> n >> a >> b >> c;
-    m[a] = m[b] = 1;
-    m[c] = 1;
-    cout << recur(n) << "\n";
+    vector<int> v(n + 1, -1000);
+    v[0] = 0;
+    for (int i = 1; i <= n; i++) {
+        if (i - a >= 0) v[i] = max(v[i], v[i - a] + 1);
+        if (i - b >= 0) v[i] = max(v[i], v[i - b] + 1);
+        if (i - c >= 0) v[i] = max(v[i], v[i - c] + 1);
+    }
+    cout << v[n] << "\n";
     return 0;
 }
 
