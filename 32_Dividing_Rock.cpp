@@ -9,16 +9,16 @@ int main() {
     cin.tie(nullptr)->sync_with_stdio(false);
     int n, k;
     cin >> n >> k;
-    vector<vector<int>> v(k + 1, vector<int>(n + 1));
-    for (int i = 1; i <= k; i++) {
-        for (int j = 1; j <= n; j++) {
-            if (i == 1 || i == j)
+    vector<vector<int>> v(n + 1, vector<int>(k + 1));
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= k; j++) {
+            if (j == 1 || i == j)
                 v[i][j] = 1;
             else
-                v[i][j] = ((v[i][j - 1] * i) % mod + v[i - 1][j - 1]) % mod;
+                v[i][j] = ((v[i - 1][j] * i) % mod + v[i - 1][j - 1]) % mod;
         }
     }
-    cout << v[k][n] << "\n";
+    cout << v[n][k] << "\n";
     return 0;
 }
 
