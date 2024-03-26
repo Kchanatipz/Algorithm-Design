@@ -7,6 +7,8 @@ using namespace std;
 bool dfs(vector<vector<int>> &graph, vector<bool> &visited, int node, int parent) {
     visited[node] = true;
     for (int adj : graph[node]) {
+        if (adj == parent)
+            continue;
         if (!visited[adj]) {
             dfs(graph, visited, adj, node);
         } else if (adj != parent) {
