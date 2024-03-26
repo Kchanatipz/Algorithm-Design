@@ -4,29 +4,14 @@
 
 using namespace std;
 
-void check(vector<vector<int>> v) {
-    for (int i = 0; i < v.size(); i++) {
-        cout << i << " : ";
-        for (int j : v[i])
-            cout << j << " ";
-        cout << "\n";
-    }
-    return;
-}
-
 bool dfs(vector<vector<int>> &graph, vector<bool> &visited, int node, int parent) {
     visited[node] = true;
-    cout << node << "&" << parent << " : ";
-    for (int v : graph[node]) {
-        cout << v;
-        if (!visited[v]) {
-            cout << "=1 ";
-            dfs(graph, visited, v, node);
-        } else if (node != parent) {
-            cout << "=2 ";
+    for (int adj : graph[node]) {
+        if (!visited[adj]) {
+            dfs(graph, visited, adj, node);
+        } else if (adj != parent) {
             return true;
         }
-        cout << "\n";
     }
     return false;
 }
@@ -40,14 +25,14 @@ int main() {
     while (n--) {
         cin >> V >> E;
         vector<vector<int>> graph(V);
-        vector<bool> visited(V);
         while (E--) {
             cin >> x >> y;
             graph[x].push_back(y);
             graph[y].push_back(x);
         }
-        check(graph);
         for (int i = 0; i < V; i++) {
+            ans = false;
+            vector<bool> visited(V);
             if (!visited[i] && dfs(graph, visited, i, -1)) {
                 ans = true;
                 break;
