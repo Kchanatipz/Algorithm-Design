@@ -5,5 +5,6 @@
 - 3XX -> Dynamic Programming
 - 4XX -> Greedy Algorithms
 - 5XX -> Graph Algorithms
+- 6XX -> State Space Search
 
 ### Credit : [CP49 Grader](https://grader.nattee.net) & [LeetCode](https://leetcode.com)
