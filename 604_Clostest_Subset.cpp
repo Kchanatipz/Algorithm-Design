@@ -7,13 +7,13 @@ vector<int> a;
 int x = 0;
 
 void recur(int step, int selected, int acc) {
-    if (step > n)
+    if (step > n || n - step < m - selected)
         return;
-
+    if (abs(k - acc) > ans && acc > k)
+        return;
     if (selected == m) {
         ans = min(ans, abs(acc - k));
     }
-    // cout << step << " " << selected << "\n";
 
     recur(step + 1, selected + 1, acc + a[step]);
     recur(step + 1, selected, acc);
