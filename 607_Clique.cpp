@@ -24,12 +24,6 @@ void recur(int step, int acc) {
             }
         }
         if (check) {
-            for (int i = 0; i < n; i++)
-                if (i < n)
-                    cout << chosen[i] << " ";
-                else
-                    break;
-            cout << " = " << acc << "\n";
             ans = max(ans, acc);
         }
     }
@@ -45,9 +39,8 @@ int main() {
         for (int j = 0; j < n; j++)
             cin >> f[i][j];
 
-    cout << "---------------\n";
     recur(0, 0);
-    cout << "ANS : " << ans << "\n";
+    cout << ans << "\n";
 }
 
 /*
