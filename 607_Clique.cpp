@@ -3,11 +3,11 @@
 #include <vector>
 
 using namespace std;
-int n, ans = -(1e9 + 7), cnt = 0;
-int f[55][55], b[55];
-bool chosen[55];
+int n, ans = -(1e9 + 7);
+int f[55][55], b[55], tail[55];
+bool sol[55];
 
-bool check(bool sol[], int step) {
+bool check(int step) {
     for (int i = 0; i < step; i++)
         if (sol[i] && (!f[step][i] || !f[i][step]))
             return false;
@@ -22,26 +22,19 @@ int heuristic(int step) {
     return acc;
 }
 
-void checkState(bool sol[], int step, int acc) {
-    for (int i = 0; i < n; i++) cout << sol[i] << " ";
-    cout << ": " << step << " & " << heuristic(step - 1) << " ";
-    cout << "\n";
-    return;
-}
-
-void recur(bool sol[], int step, int acc) {
-    // checkState(step, acc);
-
+void recur(int step, int acc) {
     if (sol[step - 1] && acc + heuristic(step - 1) <= ans)
         return;
 
-    cnt++;
+    if (acc + tail[step] <= ans)
+        return;
+
     if (step < n) {
         sol[step] = true;
-        if (check(sol, step))
-            recur(sol, step + 1, acc + b[step]);
+        if (check(step))
+            recur(step + 1, acc + b[step]);
         sol[step] = false;
-        recur(sol, step + 1, acc);
+        recur(step + 1, acc);
     } else {
         return void(ans = max(ans, acc));
     }
@@ -57,10 +50,11 @@ int main() {
         for (int j = 0; j < n; j++)
             cin >> f[i][j];
 
-    bool sol[55];
-    recur(sol, 0, 0);
+    tail[n - 1] = b[n - 1];
+    for (int i = n - 2; i >= 0; i--)
+        tail[i] = tail[i + 1] + b[i];
+    recur(0, 0);
     cout << ans << "\n";
-    // cout << cnt << " stages\n";
 }
 
 /*
